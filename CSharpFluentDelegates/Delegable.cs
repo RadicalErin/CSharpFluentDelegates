@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace CSharpFluentDelegates
+﻿namespace CSharpFluentDelegates
 {
     public abstract class Delegable
     {
