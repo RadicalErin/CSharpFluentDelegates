@@ -79,6 +79,20 @@
             }
         }
 
+        protected void InvokeActionWithExceptionRetryAndDelay(Action del, int maxAttempts, int delayMs, Action? onSuccess = null, Action? onFail = null)
+        {
+            int localInvokeCount = 0;
+            while (!isSuccessful && localInvokeCount < maxAttempts)
+            {
+                localInvokeCount++;
+                InvokeAction(del, onSuccess, onFail);
+                if(!isSuccessful)
+                {
+                    Thread.Sleep(delayMs);
+                }
+            }
+        }
+
         protected void InvokeActionWithTimeout(Action del, int timeoutMs, Action? onSuccess = null, Action? onFail = null)
         {
             try
