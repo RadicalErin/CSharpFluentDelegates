@@ -1,6 +1,6 @@
 ﻿namespace CSharpFluentDelegates
 {
-    public abstract class AFunctionable<TResult> : Delegable
+    public abstract class AFunctionable<TResult> : ADelegable
     {
         protected TResult? result;
 
@@ -69,6 +69,19 @@
                 onFail
             );
         }
+
+        public void InvokeFuncWithTimeoutAndRetry(Func<TResult> del, int timeoutMs, int retryTimes, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeActionWithTimeoutAndRetry(
+                () => {
+                    result = del.Invoke();
+                },
+                timeoutMs,
+                retryTimes,
+                onSuccess,
+                onFail
+            );
+        }
     }
 
     public class Functionable<TResult> : AFunctionable<TResult>
@@ -108,6 +121,12 @@
         public Functionable<TResult> InvokeWithTimeout(int timeoutMs, Action? onSuccess = null, Action? onFail = null)
         {
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(); }, timeoutMs, onSuccess, onFail);
+            return this;
+        }
+
+        public Functionable<TResult> InvokeWithTimeoutAndRetry(int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(); }, timeoutMs, maxAttempts, onSuccess, onFail);
             return this;
         }
     }
@@ -151,6 +170,12 @@
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t); }, timeoutMs, onSuccess, onFail);
             return this;
         }
+
+        public Functionable<T, TResult> InvokeWithTimeoutAndRetry(T t, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t); }, timeoutMs, maxAttempts, onSuccess, onFail);
+            return this;
+        }
     }
 
     public class Functionable<T1, T2, TResult> : AFunctionable<TResult>
@@ -190,6 +215,12 @@
         public Functionable<T1, T2, TResult> InvokeWithTimeout(T1 t1, T2 t2, int timeoutMs, Action? onSuccess = null, Action? onFail = null)
         {
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2); }, timeoutMs, onSuccess, onFail);
+            return this;
+        }
+
+        public Functionable<T1, T2, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2); }, timeoutMs, maxAttempts, onSuccess, onFail);
             return this;
         }
     }
@@ -233,6 +264,12 @@
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3); }, timeoutMs, onSuccess, onFail);
             return this;
         }
+
+        public Functionable<T1, T2, T3, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3); }, timeoutMs, maxAttempts, onSuccess, onFail);
+            return this;
+        }
     }
 
     public class Functionable<T1, T2, T3, T4, TResult> : AFunctionable<TResult>
@@ -272,6 +309,12 @@
         public Functionable<T1, T2, T3, T4, TResult> InvokeWithTimeout(T1 t1, T2 t2, T3 t3, T4 t4, int timeoutMs, Action? onSuccess = null, Action? onFail = null)
         {
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4); }, timeoutMs, onSuccess, onFail);
+            return this;
+        }
+
+        public Functionable<T1, T2, T3, T4, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4); }, timeoutMs, maxAttempts, onSuccess, onFail);
             return this;
         }
     }
@@ -315,6 +358,12 @@
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4, t5); }, timeoutMs, onSuccess, onFail);
             return this;
         }
+
+        public Functionable<T1, T2, T3, T4, T5, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5); }, timeoutMs, maxAttempts, onSuccess, onFail);
+            return this;
+        }
     }
 
     public class Functionable<T1, T2, T3, T4, T5, T6, TResult> : AFunctionable<TResult>
@@ -354,6 +403,12 @@
         public Functionable<T1, T2, T3, T4, T5, T6, TResult> InvokeWithTimeout(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, int timeoutMs, Action? onSuccess = null, Action? onFail = null)
         {
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6); }, timeoutMs, onSuccess, onFail);
+            return this;
+        }
+
+        public Functionable<T1, T2, T3, T4, T5, T6, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6); }, timeoutMs, maxAttempts, onSuccess, onFail);
             return this;
         }
     }
@@ -397,6 +452,12 @@
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7); }, timeoutMs, onSuccess, onFail);
             return this;
         }
+
+        public Functionable<T1, T2, T3, T4, T5, T6, T7, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7); }, timeoutMs, maxAttempts, onSuccess, onFail);
+            return this;
+        }
     }
 
     public class Functionable<T1, T2, T3, T4, T5, T6, T7, T8, TResult> : AFunctionable<TResult>
@@ -436,6 +497,12 @@
         public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, TResult> InvokeWithTimeout(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int timeoutMs, Action? onSuccess = null, Action? onFail = null)
         {
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8); }, timeoutMs, onSuccess, onFail);
+            return this;
+        }
+
+        public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8); }, timeoutMs, maxAttempts, onSuccess, onFail);
             return this;
         }
     }
@@ -479,6 +546,12 @@
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9); }, timeoutMs, onSuccess, onFail);
             return this;
         }
+
+        public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9); }, timeoutMs, maxAttempts, onSuccess, onFail);
+            return this;
+        }
     }
 
     public class Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> : AFunctionable<TResult>
@@ -520,6 +593,12 @@
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10); }, timeoutMs, onSuccess, onFail);
             return this;
         }
+
+        public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10); }, timeoutMs, maxAttempts, onSuccess, onFail);
+            return this;
+        }
     }
 
     public class Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> : AFunctionable<TResult>
@@ -550,15 +629,21 @@
             return this;
         }
 
-        public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> InvokeAndRetryWithDelayFunction(int maxAttempts, Func<int, int> delayFunction, Action? onSuccess = null, Action? onFail = null)
+        public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> InvokeAndRetryWithDelayFunction(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int maxAttempts, Func<int, int> delayFunction, Action? onSuccess = null, Action? onFail = null)
         {
-            InvokeFuncWithExceptionRetryAndDelayFunction(() => { return DelegateEntity.Invoke(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11); }, maxAttempts, delayFunction, onSuccess, onFail);
+            InvokeFuncWithExceptionRetryAndDelayFunction(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11); }, maxAttempts, delayFunction, onSuccess, onFail);
             return this;
         }
 
         public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> InvokeWithTimeout(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int timeoutMs, Action? onSuccess = null, Action? onFail = null)
         {
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11); }, timeoutMs, onSuccess, onFail);
+            return this;
+        }
+
+        public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11); }, timeoutMs, maxAttempts, onSuccess, onFail);
             return this;
         }
     }
@@ -602,6 +687,12 @@
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12); }, timeoutMs, onSuccess, onFail);
             return this;
         }
+
+        public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12); }, timeoutMs, maxAttempts, onSuccess, onFail);
+            return this;
+        }
     }
 
     public class Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> : AFunctionable<TResult>
@@ -641,6 +732,12 @@
         public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> InvokeWithTimeout(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int timeoutMs, Action? onSuccess = null, Action? onFail = null)
         {
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13); }, timeoutMs, onSuccess, onFail);
+            return this;
+        }
+
+        public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13); }, timeoutMs, maxAttempts, onSuccess, onFail);
             return this;
         }
     }
@@ -684,6 +781,12 @@
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14); }, timeoutMs, onSuccess, onFail);
             return this;
         }
+
+        public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14); }, timeoutMs, maxAttempts, onSuccess, onFail);
+            return this;
+        }
     }
 
     public class Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> : AFunctionable<TResult>
@@ -725,6 +828,12 @@
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15); }, timeoutMs, onSuccess, onFail);
             return this;
         }
+
+        public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15); }, timeoutMs, maxAttempts, onSuccess, onFail);
+            return this;
+        }
     }
 
     public class Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> : AFunctionable<TResult>
@@ -764,6 +873,12 @@
         public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> InvokeWithTimeout(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int timeoutMs, Action? onSuccess = null, Action? onFail = null)
         {
             InvokeFuncWithTimeout(() =>  { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16); }, timeoutMs, onSuccess, onFail);
+            return this;
+        }
+
+        public Functionable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> InvokeWithTimeoutAndRetry(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            InvokeFuncWithTimeoutAndRetry(() => { return DelegateEntity.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16); }, timeoutMs, maxAttempts, onSuccess, onFail);
             return this;
         }
     }

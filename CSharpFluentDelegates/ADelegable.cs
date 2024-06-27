@@ -1,6 +1,6 @@
 ﻿namespace CSharpFluentDelegates
 {
-    public abstract class Delegable
+    public abstract class ADelegable
     {
         protected bool isSuccessful;
 
@@ -139,6 +139,16 @@
                 {
                     onFail();
                 }
+            }
+        }
+
+        protected void InvokeActionWithTimeoutAndRetry(Action del, int timeoutMs, int maxAttempts, Action? onSuccess = null, Action? onFail = null)
+        {
+            int localInvokeCount = 0;
+            while (!isSuccessful && localInvokeCount < maxAttempts)
+            {
+                localInvokeCount++;
+                InvokeActionWithTimeout(del, timeoutMs, onSuccess, onFail);
             }
         }
     }
